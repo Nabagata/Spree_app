@@ -27,6 +27,7 @@ public class Drawer extends Fragment {
     private boolean mFromSavedInstance;
     private final String USER_HAS_LEARNED="user has learned";
     private String FILE_NAME="spree_shared_file";
+    private View drawer_container;
     public Drawer() {
         // Required empty public constructor
     }
@@ -45,8 +46,9 @@ public class Drawer extends Fragment {
     }
 
 
-    public void setup(DrawerLayout drawerLayout,Toolbar toolbar) {
+    public void setup(int drawer_fragment, DrawerLayout drawerLayout, Toolbar toolbar) {
     mdrawerlayout=drawerLayout;
+        drawer_container=getActivity().findViewById(drawer_fragment);
         mdrawertoggle=new ActionBarDrawerToggle(getActivity(),drawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close){
             public void OnDrawerOpened(View drawer_view){
                 super.onDrawerOpened(drawer_view);
@@ -62,19 +64,26 @@ public class Drawer extends Fragment {
             }
         };
         if (!mUserLearnedDrawer && !mFromSavedInstance){
-
+            mdrawerlayout.openDrawer(drawer_container);
         }
         mdrawerlayout.setDrawerListener(mdrawertoggle);
+        mdrawerlayout.post(new Runnable(){
+
+            @Override
+            public void run() {
+                mdrawertoggle.syncState();
+            }
+        });
     }
 
-    public static void savesharedpreferences(Context context,String name,String value){
+    public void savesharedpreferences(Context context, String name, String value){
         SharedPreferences sharedPreferences=context.getSharedPreferences(FILE_NAME,context.MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         editor.putString(name,value);
         editor.commit();
     }
 
-    public static String readsharedpreferences(Context context,String name,String value){
+    public String readsharedpreferences(Context context, String name, String value){
         SharedPreferences sharedPreferences=context.getSharedPreferences(FILE_NAME,context.MODE_PRIVATE);
         return sharedPreferences.getString(name,value);
     }

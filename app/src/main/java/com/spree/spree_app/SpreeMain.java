@@ -19,7 +19,7 @@ public class SpreeMain extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         Drawer drawer= (Drawer) getSupportFragmentManager().findFragmentById(R.id.drawer_fragment);
-        drawer.setup((DrawerLayout) findViewById(R.id.drawer_layout),toolbar);
+        drawer.setup(R.id.drawer_fragment,(DrawerLayout) findViewById(R.id.drawer_layout),toolbar);
     }
 
     @Override

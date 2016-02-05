@@ -7,7 +7,7 @@
         <item name="colorPrimaryDark">@color/secondarycolor</item>
         <item name="colorAccent">@color/accentcolor</item>
     </style>
-    <style name="spree_toolbar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="spree_toolbar" parent="Theme.AppCompat.NoActionBar">
         <item name="android:textColorPrimary">#FFF</item>
         <item name="android:homeAsUpIndicator">@drawable/back</item>
     </style>
