@@ -8,10 +8,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.crypto.Cipher;
 
@@ -27,7 +32,9 @@ public class Drawer extends Fragment {
     private boolean mFromSavedInstance;
     private final String USER_HAS_LEARNED="user has learned";
     private String FILE_NAME="spree_shared_file";
+    private RecyclerView recyclerView;
     private View drawer_container;
+    private R_ViewAdapter adapter;
     public Drawer() {
         // Required empty public constructor
     }
@@ -41,11 +48,27 @@ public class Drawer extends Fragment {
         if (savedInstanceState!=null){
             mFromSavedInstance=true;
         }
+        View layout=inflater.inflate(R.layout.fragment_drawer, container, false);
+        recyclerView= (RecyclerView) layout.findViewById(R.id.r_view);
 
-        return inflater.inflate(R.layout.fragment_drawer, container, false);
+        adapter=new R_ViewAdapter(getActivity(),get_data());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        return layout;
     }
 
-
+    public static List<List_item> get_data(){
+        List<List_item> data=new ArrayList<>();
+        int[] icons={R.drawable.search,R.drawable.search,R.drawable.search};
+        String[] titles={"Events","proshows","Attractions"};
+        for (int i=0;i<titles.length && i<icons.length;i++){
+           List_item current= new List_item();
+            current.icon_id=icons[i];
+            current.title=titles[i];
+            data.add(current);
+        }
+        return data;
+    }
     public void setup(int drawer_fragment, DrawerLayout drawerLayout, Toolbar toolbar) {
     mdrawerlayout=drawerLayout;
         drawer_container=getActivity().findViewById(drawer_fragment);
