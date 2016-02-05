@@ -1,17 +1,21 @@
 package com.spree.spree_app;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
 public class SpreeMain extends ActionBarActivity {
-
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spree_main);
+        toolbar= (Toolbar) findViewById(R.id.app_toolbar);
+        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -31,6 +35,10 @@ public class SpreeMain extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        if (id == R.id.notify_img){
+            Intent I=new Intent(this,Notify.class);
+            startActivity(I);
         }
 
         return super.onOptionsItemSelected(item);

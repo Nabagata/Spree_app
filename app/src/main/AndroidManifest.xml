@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Notify"
+            android:label="@string/title_activity_notify" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".SpreeMain"/>
+        </activity>
     </application>
 
 </manifest>
