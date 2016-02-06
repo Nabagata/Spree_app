@@ -59,8 +59,8 @@ public class Drawer extends Fragment {
 
     public static List<List_item> get_data(){
         List<List_item> data=new ArrayList<>();
-        int[] icons={R.drawable.search,R.drawable.search,R.drawable.search};
-        String[] titles={"Events","proshows","Attractions"};
+        int[] icons={R.drawable.event,R.drawable.pro,R.drawable.attt};
+        String[] titles={"Events","Proshows","Attractions"};
         for (int i=0;i<titles.length && i<icons.length;i++){
            List_item current= new List_item();
             current.icon_id=icons[i];
