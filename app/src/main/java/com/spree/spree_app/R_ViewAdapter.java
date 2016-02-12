@@ -1,6 +1,7 @@
 package com.spree.spree_app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,10 +20,12 @@ public class R_ViewAdapter extends RecyclerView.Adapter<R_ViewAdapter.R_ViewHold
 
     private LayoutInflater inflater;
     List<List_item> data= Collections.emptyList();
+    private Context item_context;
 
     public R_ViewAdapter(Context context,List<List_item> data){
         inflater= LayoutInflater.from(context);
         this.data=data;
+        item_context=context;
     }
     @Override
     public R_ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,13 +46,26 @@ public class R_ViewAdapter extends RecyclerView.Adapter<R_ViewAdapter.R_ViewHold
         return data.size();
     }
 
-    class R_ViewHolder extends RecyclerView.ViewHolder{
+    class R_ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title;
         ImageView icon;
+
         public R_ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             title= (TextView) itemView.findViewById(R.id.list_item_title);
             icon= (ImageView) itemView.findViewById(R.id.list_item_icon);
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            try {
+
+                item_context.startActivity(new Intent(item_context,Class.forName("com.spree.spree_app.Notify")));
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
