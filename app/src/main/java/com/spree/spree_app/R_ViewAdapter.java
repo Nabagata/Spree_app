@@ -62,7 +62,7 @@ public class R_ViewAdapter extends RecyclerView.Adapter<R_ViewAdapter.R_ViewHold
 
             try {
 
-                item_context.startActivity(new Intent(item_context,Class.forName("com.spree.spree_app.Notify")));
+                item_context.startActivity(new Intent(item_context,Class.forName("com.spree.spree_app.Events")));
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
