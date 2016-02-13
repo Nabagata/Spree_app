@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.spree.spree_app.Event_main">
+    <include
+        layout="@layout/app_bar"
+        android:id="@+id/event_app_toolbar" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/event_app_toolbar"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/event_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="Sachin"
+            android:textColor="@color/accentcolor"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/event_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/event_title"
+            android:paddingBottom="16dp"
+            android:textSize="12sp"
+            android:text="Sachin" />
+
+        <ImageView
+            android:id="@+id/event_icon"
+            android:layout_width="match_parent"
+            android:layout_height="225dp"
+            android:layout_below="@+id/event_text" />
+    </RelativeLayout>
+</RelativeLayout>
