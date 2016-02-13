@@ -19,7 +19,13 @@
         <activity
             android:name=".Notify"
             android:label="@string/title_activity_notify" >
-            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".SpreeMain"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SpreeMain" />
+        </activity>
+        <activity
+            android:name=".Events"
+            android:label="@string/title_activity_events" >
         </activity>
     </application>
 

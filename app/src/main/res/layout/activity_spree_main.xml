@@ -13,6 +13,20 @@
         <include
             android:id="@+id/app_toolbar"
             layout="@layout/app_bar" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/app_toolbar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:paddingRight="1dp">
+        <TableLayout
+            android:id="@+id/grid_table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="*">
+        </TableLayout>
+        </ScrollView>
 
     </RelativeLayout>
     <fragment
