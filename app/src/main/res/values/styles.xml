@@ -11,5 +11,8 @@
         <item name="android:textColorPrimary">#FFF</item>
         <item name="android:homeAsUpIndicator">@drawable/back</item>
     </style>
-
+    <style name="AppTheme.Button" parent="Base.Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/accentcolor</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>

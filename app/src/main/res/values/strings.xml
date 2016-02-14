@@ -14,5 +14,7 @@
     <string name="drawer_close">Close</string>
     <string name="title_activity_events">Events</string>
     <string name="title_activity_event_main">Event_main</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_register">Register</string>
 
 </resources>

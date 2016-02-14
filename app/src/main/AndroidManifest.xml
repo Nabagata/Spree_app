@@ -31,6 +31,14 @@
             android:name=".Event_main"
             android:label="@string/title_activity_event_main" >
         </activity>
+        <activity
+            android:name=".Login"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name=".Register"
+            android:label="@string/title_activity_register" >
+        </activity>
     </application>
 
 </manifest>

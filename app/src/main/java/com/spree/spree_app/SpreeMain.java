@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -83,13 +84,22 @@ public class SpreeMain extends ActionBarActivity {
                 ImageView event_image=new ImageView(this);
                 event_image.setImageResource(R.drawable.pic);
                 event_image.setPadding(1,1,1,1);
+                event_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        direct(v);
+                    }
+                });
                // tableRowParams.setMargins(0,1,0,1);
                 grid_row.setLayoutParams(tableRowParams);
                 grid_row.addView(event_image);
             }
         }
     }
-
+    public void direct(View v){
+        Intent I=new Intent(SpreeMain.this,Login.class);
+        startActivity(I);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
