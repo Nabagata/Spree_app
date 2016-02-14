@@ -3,6 +3,7 @@ package com.spree.spree_app;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,8 +62,9 @@ public class R_ViewAdapter extends RecyclerView.Adapter<R_ViewAdapter.R_ViewHold
         public void onClick(View v) {
 
             try {
-
+                Drawer.close();
                 item_context.startActivity(new Intent(item_context,Class.forName("com.spree.spree_app.Events")));
+
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 
 public class SpreeMain extends ActionBarActivity {
@@ -61,6 +62,7 @@ public class SpreeMain extends ActionBarActivity {
         populate_grid();
         Drawer drawer= (Drawer) getSupportFragmentManager().findFragmentById(R.id.drawer_fragment);
         drawer.setup(R.id.drawer_fragment,(DrawerLayout) findViewById(R.id.drawer_layout),toolbar);
+
     }
 
     private void populate_grid() {

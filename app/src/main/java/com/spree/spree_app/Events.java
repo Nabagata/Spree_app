@@ -25,8 +25,8 @@ public class Events extends ActionBarActivity {
         Toolbar toolbar;
         toolbar= (Toolbar) findViewById(R.id.app_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        /*getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes
@@ -74,9 +74,7 @@ public class Events extends ActionBarActivity {
        /* if (id == R.id.action_settings) {
             return true;
         }*/
-        if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
-        }
+
         if (id == R.id.notify_img){
             Intent I=new Intent(this,Notify.class);
             startActivity(I);

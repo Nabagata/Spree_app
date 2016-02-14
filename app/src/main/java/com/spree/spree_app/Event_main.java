@@ -21,8 +21,8 @@ public class Event_main extends ActionBarActivity {
         Toolbar toolbar;
         toolbar= (Toolbar) findViewById(R.id.event_app_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       /* getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
 
         Intent intent = getIntent();
         String title = intent.getExtras().getString("title");
@@ -53,10 +53,6 @@ public class Event_main extends ActionBarActivity {
        /* if (id == R.id.action_settings) {
             return true;
         }*/
-
-        if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
-        }
 
         if (id == R.id.notify_img){
             Intent I=new Intent(this,Notify.class);

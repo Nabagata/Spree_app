@@ -42,10 +42,10 @@ public class Notify extends ActionBarActivity {
             return true;
         }
 */
-        if (id == android.R.id.home) {
+       /* if (id == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
         }
-
+*/
         return super.onOptionsItemSelected(item);
     }
 }

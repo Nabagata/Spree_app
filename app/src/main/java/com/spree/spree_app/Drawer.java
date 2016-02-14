@@ -27,7 +27,7 @@ import javax.crypto.Cipher;
 public class Drawer extends Fragment {
 
     private ActionBarDrawerToggle mdrawertoggle;
-    private DrawerLayout mdrawerlayout;
+    private static DrawerLayout mdrawerlayout;
     private boolean mUserLearnedDrawer;
     private boolean mFromSavedInstance;
     private final String USER_HAS_LEARNED="user has learned";
@@ -43,11 +43,6 @@ public class Drawer extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mUserLearnedDrawer=Boolean.valueOf(readsharedpreferences(getActivity(),USER_HAS_LEARNED,"false"));
-        if (savedInstanceState!=null){
-            mFromSavedInstance=true;
-        }
         View layout=inflater.inflate(R.layout.fragment_drawer, container, false);
         recyclerView= (RecyclerView) layout.findViewById(R.id.r_view);
 
@@ -75,10 +70,6 @@ public class Drawer extends Fragment {
         mdrawertoggle=new ActionBarDrawerToggle(getActivity(),drawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close){
             public void OnDrawerOpened(View drawer_view){
                 super.onDrawerOpened(drawer_view);
-                if (!mUserLearnedDrawer){
-                    mUserLearnedDrawer=true;
-                    savesharedpreferences(getActivity(),USER_HAS_LEARNED,mUserLearnedDrawer+"");
-                }
                 getActivity().invalidateOptionsMenu();
             }
             public void OnDrawerClosed(View drawer_view){
@@ -86,12 +77,8 @@ public class Drawer extends Fragment {
                 getActivity().invalidateOptionsMenu();
             }
         };
-        if (!mUserLearnedDrawer && !mFromSavedInstance){
-            mdrawerlayout.openDrawer(drawer_container);
-        }
         mdrawerlayout.setDrawerListener(mdrawertoggle);
-        mdrawerlayout.post(new Runnable(){
-
+        mdrawerlayout.post(new Runnable() {
             @Override
             public void run() {
                 mdrawertoggle.syncState();
@@ -99,15 +86,7 @@ public class Drawer extends Fragment {
         });
     }
 
-    public void savesharedpreferences(Context context, String name, String value){
-        SharedPreferences sharedPreferences=context.getSharedPreferences(FILE_NAME,context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
-        editor.putString(name,value);
-        editor.commit();
-    }
-
-    public String readsharedpreferences(Context context, String name, String value){
-        SharedPreferences sharedPreferences=context.getSharedPreferences(FILE_NAME,context.MODE_PRIVATE);
-        return sharedPreferences.getString(name,value);
+    public static void close() {
+        mdrawerlayout.closeDrawers();
     }
 }
