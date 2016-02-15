@@ -3,6 +3,7 @@ package com.spree.spree_app;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 public class Register extends ActionBarActivity {
     TextView login;
+    android.support.v7.widget.AppCompatButton register_button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +22,13 @@ public class Register extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Register.this,Login.class));
+            }
+        });
+        register_button= (AppCompatButton) findViewById(R.id.btn_signup);
+        register_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Register.this,SpreeMain.class));
             }
         });
     }
