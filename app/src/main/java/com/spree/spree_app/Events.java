@@ -1,6 +1,8 @@
 package com.spree.spree_app;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +21,9 @@ public class Events extends ActionBarActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
+    public String type;
+    public Cursor cr;
+    SQLiteDatabase db=Database.create_db();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
@@ -46,13 +51,16 @@ public class Events extends ActionBarActivity {
     private List<Event_list_item> getdata() {
         List<Event_list_item> data=new ArrayList<>();
         int[] icons={R.drawable.wide,R.drawable.wide,R.drawable.wide};
-        String[] titles={"Events","Proshows","Attractions"};
-        for (int i=0;i<titles.length && i<icons.length;i++){
+        type=getIntent().getExtras().getString("type", null);
+        cr=db.rawQuery("select name,description from events where type='" + type + "'", null);
+        for (int i=0;cr.moveToNext() && i<icons.length;i++){
             Event_list_item current= new Event_list_item();
             current.icon_id=icons[i];
-            current.title=titles[i];
+            current.title=cr.getString(cr.getColumnIndex("name"));
+            current.description=cr.getString(cr.getColumnIndex("description"));
             data.add(current);
         }
+
         return data;
     }
 

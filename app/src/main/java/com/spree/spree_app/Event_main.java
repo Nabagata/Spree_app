@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 
 public class Event_main extends ActionBarActivity {
-    TextView event_title,event_info;
+    TextView event_title,description;
     ImageView event_icon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +29,12 @@ public class Event_main extends ActionBarActivity {
         String icon=intent.getExtras().getString("icon_id");
 
         event_title= (TextView) findViewById(R.id.event_title);
+        description= (TextView) findViewById(R.id.event_text);
         event_icon= (ImageView) findViewById(R.id.event_icon);
         int icon_id = event_icon.getResources().getIdentifier(icon, "drawable", getPackageName());
         event_title.setText(title);
         event_icon.setImageResource(icon_id);
+        description.setText(intent.getExtras().getString("description"));
     }
 
     @Override

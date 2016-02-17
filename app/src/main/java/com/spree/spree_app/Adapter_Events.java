@@ -40,6 +40,7 @@ public class Adapter_Events  extends RecyclerView.Adapter<Adapter_Events.R_ViewH
         public void onBindViewHolder(R_ViewHolder holder, int position) {
             Event_list_item current=data.get(position);
             holder.title.setText(current.title);
+            holder.description.setText(current.description);
             holder.icon.setImageResource(current.icon_id);
         }
 
@@ -49,13 +50,14 @@ public class Adapter_Events  extends RecyclerView.Adapter<Adapter_Events.R_ViewH
         }
 
         class R_ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            TextView title;
+            TextView title,description;
             ImageView icon;
 
             public R_ViewHolder(View itemView) {
                 super(itemView);
                 itemView.setOnClickListener(this);
                 title= (TextView) itemView.findViewById(R.id.card_title);
+                description=(TextView) itemView.findViewById(R.id.card_text);
                 icon= (ImageView) itemView.findViewById(R.id.card_icon);
             }
 
@@ -66,6 +68,7 @@ public class Adapter_Events  extends RecyclerView.Adapter<Adapter_Events.R_ViewH
                     Intent I=new Intent(item_context,Class.forName("com.spree.spree_app.Event_main"));
                     I.putExtra("title", title.getText());
                     I.putExtra("icon_id", "wide");
+                    I.putExtra("description",description.getText());
                     item_context.startActivity(I);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();

@@ -1,6 +1,8 @@
 package com.spree.spree_app;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,46 +15,16 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
+import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
+
 
 public class SpreeMain extends ActionBarActivity {
     private Toolbar toolbar;
-    private int col=3;
-    public String[] events = {
-            "Google",
-            "Github",
-            "Instagram",
-            "Facebook",
-            "Flickr",
-            "Pinterest",
-            "Quora",
-            "Twitter",
-            "Vimeo",
-            "WordPress",
-            "Youtube",
-            "Stumbleupon",
-            "SoundCloud",
-            "Reddit",
-            "Blogger"
-    } ;
-    private int rows= (int) Math.ceil(events.length/3.0);
-    /*int[] imageId = {
-            R.drawable.image1,
-            R.drawable.image2,
-            R.drawable.image3,
-            R.drawable.image4,
-            R.drawable.image5,
-            R.drawable.image6,
-            R.drawable.image7,
-            R.drawable.image8,
-            R.drawable.image9,
-            R.drawable.image10,
-            R.drawable.image11,
-            R.drawable.image12,
-            R.drawable.image13,
-            R.drawable.image14,
-            R.drawable.image15
-
-    };*/
+    private int col=2;
+    private int rows;
+    private int count=0;
+    public Cursor cr;
+    SQLiteDatabase db=Database.create_db();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +42,9 @@ public class SpreeMain extends ActionBarActivity {
         TableLayout grid_table= (TableLayout) findViewById(R.id.grid_table);
        // grid_table.getLayoutParams().height = 300;
        // grid_table.requestLayout();
+        cr=db.rawQuery("select distinct type from events",null);
+        rows= (int) Math.ceil(cr.getCount()/ 2.0);
+        Toast.makeText(getApplicationContext()," "+rows+" "+cr.getCount() , Toast.LENGTH_LONG).show();
         for (int i=0;i<rows;i++){
             TableRow grid_row=new TableRow(this);
             TableLayout.LayoutParams tableRowParams=
@@ -80,14 +55,18 @@ public class SpreeMain extends ActionBarActivity {
                     );
             grid_row.setLayoutParams(tableRowParams);
             grid_table.addView(grid_row);
-            for (int j=0;j<col;j++){
+
+            for (int j=0;j<col && cr.moveToNext();j++){
+                final String type;
+                type=cr.getString(cr.getColumnIndex("type"));
+                Toast.makeText(getApplicationContext()," "+type,Toast.LENGTH_SHORT).show();
                 ImageView event_image=new ImageView(this);
                 event_image.setImageResource(R.drawable.pic);
                 event_image.setPadding(1,1,1,1);
                 event_image.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        direct(v);
+                        direct(v,type);
                     }
                 });
                // tableRowParams.setMargins(0,1,0,1);
@@ -96,8 +75,9 @@ public class SpreeMain extends ActionBarActivity {
             }
         }
     }
-    public void direct(View v){
-        Intent I=new Intent(SpreeMain.this,Login.class);
+    public void direct(View v,String type){
+        Intent I=new Intent(SpreeMain.this,Events.class);
+        I.putExtra("type",type);
         startActivity(I);
     }
     @Override

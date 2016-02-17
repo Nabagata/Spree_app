@@ -6,4 +6,5 @@ package com.spree.spree_app;
 public class Event_list_item {
     String title;
     int icon_id;
+    public String description;
 }
