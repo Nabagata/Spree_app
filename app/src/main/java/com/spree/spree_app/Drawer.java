@@ -14,6 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +31,6 @@ public class Drawer extends Fragment {
 
     private ActionBarDrawerToggle mdrawertoggle;
     private static DrawerLayout mdrawerlayout;
-    private boolean mUserLearnedDrawer;
-    private boolean mFromSavedInstance;
-    private final String USER_HAS_LEARNED="user has learned";
-    private String FILE_NAME="spree_shared_file";
     private RecyclerView recyclerView;
     private View drawer_container;
     private R_ViewAdapter adapter;
@@ -54,8 +53,8 @@ public class Drawer extends Fragment {
 
     public static List<List_item> get_data(){
         List<List_item> data=new ArrayList<>();
-        int[] icons={R.drawable.event,R.drawable.pro,R.drawable.attt};
-        String[] titles={"Events","Proshows","Attractions"};
+        int[] icons={R.drawable.event,R.drawable.pro,R.drawable.attt,R.drawable.attt,R.drawable.attt,R.drawable.attt};
+        String[] titles={"Events","General","Attraction","Team","Login","About"};
         for (int i=0;i<titles.length && i<icons.length;i++){
            List_item current= new List_item();
             current.icon_id=icons[i];

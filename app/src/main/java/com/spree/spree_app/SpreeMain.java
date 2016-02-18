@@ -25,6 +25,7 @@ public class SpreeMain extends ActionBarActivity {
     private int count=0;
     public Cursor cr;
     SQLiteDatabase db=Database.create_db();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +41,6 @@ public class SpreeMain extends ActionBarActivity {
 
     private void populate_grid() {
         TableLayout grid_table= (TableLayout) findViewById(R.id.grid_table);
-       // grid_table.getLayoutParams().height = 300;
-       // grid_table.requestLayout();
         cr=db.rawQuery("select distinct type from events",null);
         rows= (int) Math.ceil(cr.getCount()/ 2.0);
         Toast.makeText(getApplicationContext()," "+rows+" "+cr.getCount() , Toast.LENGTH_LONG).show();
@@ -69,7 +68,6 @@ public class SpreeMain extends ActionBarActivity {
                         direct(v,type);
                     }
                 });
-               // tableRowParams.setMargins(0,1,0,1);
                 grid_row.setLayoutParams(tableRowParams);
                 grid_row.addView(event_image);
             }

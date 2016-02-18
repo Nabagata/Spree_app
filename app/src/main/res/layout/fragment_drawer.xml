@@ -20,11 +20,10 @@
        />
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@id/linear_image"
+        android:layout_below="@+id/linear_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:id="@+id/r_view"
         >
     </android.support.v7.widget.RecyclerView>
-
 </RelativeLayout>

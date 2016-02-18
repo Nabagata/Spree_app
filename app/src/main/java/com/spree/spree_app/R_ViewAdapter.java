@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.List;
@@ -63,7 +64,24 @@ public class R_ViewAdapter extends RecyclerView.Adapter<R_ViewAdapter.R_ViewHold
 
             try {
                 Drawer.close();
-                item_context.startActivity(new Intent(item_context,Class.forName("com.spree.spree_app.Events")));
+                Intent I=null;
+                String type=title.getText().toString().toLowerCase();
+                Toast.makeText(item_context,""+type,Toast.LENGTH_SHORT).show();
+                if(!(type.equals("login") || type.equals("team") ||type.equals("about") )){
+                    I=new Intent(item_context,Class.forName("com.spree.spree_app.Events"));
+                    I.putExtra("type",type);
+                }
+                else{
+                    if (type.equals("login")){
+                        I=new Intent(item_context,Login.class);
+                    }
+                    else if (type.equals("team")){
+                        I=new Intent(item_context,Team.class);
+                    }else if (type.equals("about")){
+                        I=new Intent(item_context,About.class);
+                    }
+                }
+                item_context.startActivity(I);
 
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
