@@ -21,9 +21,10 @@ public class Events extends ActionBarActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    public String type;
+    public String category1;
     public Cursor cr;
-    SQLiteDatabase db=Database.create_db();
+    Database sdb=new Database(this);
+    SQLiteDatabase db=sdb.create_db();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
@@ -51,16 +52,27 @@ public class Events extends ActionBarActivity {
     private List<Event_list_item> getdata() {
         List<Event_list_item> data=new ArrayList<>();
         int[] icons={R.drawable.wide,R.drawable.wide,R.drawable.wide};
-        type=getIntent().getExtras().getString("type", null);
-        cr=db.rawQuery("select name,description from events where type='" + type + "'", null);
-        for (int i=0;cr.moveToNext() && i<icons.length;i++){
-            Event_list_item current= new Event_list_item();
-            current.icon_id=icons[i];
-            current.title=cr.getString(cr.getColumnIndex("name"));
-            current.description=cr.getString(cr.getColumnIndex("description"));
-            data.add(current);
+        category1=getIntent().getExtras().getString("category1", null);
+        if(!category1.equals("events")) {
+            cr = db.rawQuery("select event_name,remarks from events where category1='" + category1 + "'", null);
+            for (int i = 0; cr.moveToNext(); i++) {
+                Event_list_item current = new Event_list_item();
+                current.icon_id = icons[0];
+                current.title = cr.getString(cr.getColumnIndex("event_name"));
+                current.description = cr.getString(cr.getColumnIndex("remarks"));
+                data.add(current);
+            }
         }
-
+        else{
+            cr = db.rawQuery("select event_name,remarks from events ", null);
+            for (int i = 0; cr.moveToNext(); i++) {
+                Event_list_item current = new Event_list_item();
+                current.icon_id = icons[0];
+                current.title = cr.getString(cr.getColumnIndex("event_name"));
+                current.description = cr.getString(cr.getColumnIndex("remarks"));
+                data.add(current);
+            }
+        }
         return data;
     }
 
