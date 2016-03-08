@@ -21,7 +21,9 @@ public class Notify extends ActionBarActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     public String type;
     public Cursor cr;
-    SQLiteDatabase db=Database.create_db();
+    Database sdb=new Database(this);
+    SQLiteDatabase db=sdb.create_db();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

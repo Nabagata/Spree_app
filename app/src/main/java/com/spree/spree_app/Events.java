@@ -53,26 +53,15 @@ public class Events extends ActionBarActivity {
         List<Event_list_item> data=new ArrayList<>();
         int[] icons={R.drawable.wide,R.drawable.wide,R.drawable.wide};
         category1=getIntent().getExtras().getString("category1", null);
-        if(!category1.equals("events")) {
-            cr = db.rawQuery("select event_name,remarks from events where category1='" + category1 + "'", null);
-            for (int i = 0; cr.moveToNext(); i++) {
-                Event_list_item current = new Event_list_item();
-                current.icon_id = icons[0];
-                current.title = cr.getString(cr.getColumnIndex("event_name"));
-                current.description = cr.getString(cr.getColumnIndex("remarks"));
-                data.add(current);
-            }
+        cr = db.rawQuery(category1, null);
+        for (int i = 0; cr.moveToNext(); i++) {
+            Event_list_item current = new Event_list_item();
+            current.icon_id = icons[0];
+            current.title = cr.getString(cr.getColumnIndex("event_name"));
+            current.description = cr.getString(cr.getColumnIndex("remarks"));
+            data.add(current);
         }
-        else{
-            cr = db.rawQuery("select event_name,remarks from events ", null);
-            for (int i = 0; cr.moveToNext(); i++) {
-                Event_list_item current = new Event_list_item();
-                current.icon_id = icons[0];
-                current.title = cr.getString(cr.getColumnIndex("event_name"));
-                current.description = cr.getString(cr.getColumnIndex("remarks"));
-                data.add(current);
-            }
-        }
+
         return data;
     }
 

@@ -2,9 +2,11 @@ package com.spree.spree_app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,9 +69,31 @@ public class R_ViewAdapter extends RecyclerView.Adapter<R_ViewAdapter.R_ViewHold
                 Intent I=null;
                 String type=title.getText().toString().toLowerCase();
                 Toast.makeText(item_context,""+type,Toast.LENGTH_SHORT).show();
+                String query=null;
                 if(!(type.equals("login") || type.equals("team") ||type.equals("about") )){
-                    I=new Intent(item_context,Class.forName("com.spree.spree_app.Events"));
-                    I.putExtra("type",type);
+
+                    if(type.equals("events")){
+                        Log.d("sachin", "detected");
+                        I=new Intent(item_context,Event_9.class);
+                    }
+
+
+                    else {
+                        I=new Intent(item_context,Class.forName("com.spree.spree_app.Events"));
+
+                        if (type.equals("spotlights"))
+                            query = "select event_name,remarks from events where category1='spotlight' ";
+                        else if (type.equals("proshow"))
+                            query = "select event_name,remarks from events where type='proshows' ";
+                        else if (type.equals("initiative"))
+                            query = "select event_name,remarks from events where type='initiative' ";
+                        else if (type.equals("workshop"))
+                            query = "select event_name,remarks from events where type='workshop' ";
+                        else if (type.equals("attraction"))
+                            query = "select event_name,remarks from events where type='attractions' ";
+
+                        I.putExtra("category1", query);
+                    }
                 }
                 else{
                     if (type.equals("login")){
@@ -80,6 +104,7 @@ public class R_ViewAdapter extends RecyclerView.Adapter<R_ViewAdapter.R_ViewHold
                     }else if (type.equals("about")){
                         I=new Intent(item_context,About.class);
                     }
+
                 }
                 item_context.startActivity(I);
 

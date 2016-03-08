@@ -2,13 +2,12 @@ package com.spree.spree_app;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,14 +16,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
-import com.astuetz.PagerSlidingTabStrip;
 
-import java.io.IOException;
-
-import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
-
-
-public class SpreeMain extends ActionBarActivity {
+public class Event_9 extends ActionBarActivity {
     private Toolbar toolbar;
     private int col=2;
     private int rows;
@@ -57,7 +50,7 @@ public class SpreeMain extends ActionBarActivity {
 
     private void populate_grid() {
         TableLayout grid_table= (TableLayout) findViewById(R.id.grid_table);
-        cr=db.rawQuery("select distinct category1 from events",null);
+        cr=db.rawQuery("select distinct category_new from events",null);
         rows= (int) Math.ceil(cr.getCount()/ 2.0);
         for (int i=0;i<rows;i++){
             TableRow grid_row=new TableRow(this);
@@ -71,8 +64,8 @@ public class SpreeMain extends ActionBarActivity {
             grid_table.addView(grid_row);
 
             for (int j=0;j<col && cr.moveToNext();j++){
-                final String category1;
-                category1=cr.getString(cr.getColumnIndex("category1"));
+                final int category1;
+                category1=Integer.parseInt(cr.getString(cr.getColumnIndex("category_new")));
                 Toast.makeText(getApplicationContext()," "+category1,Toast.LENGTH_SHORT).show();
                 ImageView event_image=new ImageView(this);
                 event_image.setImageResource(R.drawable.pic);
@@ -88,17 +81,17 @@ public class SpreeMain extends ActionBarActivity {
             }
         }
     }
-    public void direct(View v,String category1){
-        Intent I=new Intent(SpreeMain.this,Events.class);
-       // String query="select event_name,remarks from events where category=' "+category1+" ' ";
-        String query="select event_name,remarks from events where category1='"+category1+"' ";
+    public void direct(View v,int category1){
+        Intent I=new Intent(Event_9.this,Events.class);
+        // String query="select event_name,remarks from events where category=' "+category1+" ' ";
+        String query="select event_name,remarks from events where category_new="+category1+"";
         I.putExtra("category1", query);
         startActivity(I);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_spree_main, menu);
+        getMenuInflater().inflate(R.menu.menu_event_9, menu);
         return true;
     }
 
@@ -110,12 +103,8 @@ public class SpreeMain extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        /*if (id == R.id.action_settings) {
+        if (id == R.id.action_settings) {
             return true;
-        }*/
-        if (id == R.id.notify_img){
-            Intent I=new Intent(this,Notify.class);
-            startActivity(I);
         }
 
         return super.onOptionsItemSelected(item);

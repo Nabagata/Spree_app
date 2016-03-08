@@ -18,5 +18,8 @@
     <string name="title_activity_register">Register</string>
     <string name="title_activity_team">Team</string>
     <string name="title_activity_about">About</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_pager">Pager</string>
+    <string name="title_activity_event_9">Event_9</string>
 
 </resources>

@@ -50,6 +50,10 @@
             android:name=".About"
             android:label="@string/title_activity_about" >
         </activity>
+        <activity
+            android:name=".Event_9"
+            android:label="@string/title_activity_event_9" >
+        </activity>
     </application>
 
 </manifest>
