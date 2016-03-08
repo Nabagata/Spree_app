@@ -1,22 +1,92 @@
 package com.spree.spree_app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 
 
 public class Login extends ActionBarActivity {
+
+
+    class LoginAsync extends AsyncTask<String,Void,String>
+    {
+        Context context;
+        public LoginAsync(Context context)
+        {
+            this.context=context;
+        }
+        @Override
+        protected String doInBackground(String...arg) {
+            try{
+                String username = (String)arg[0];
+                String password = (String)arg[1];
+
+                String link="http://localhost/spree_reg16/accounts/login_mobile";
+                String data  = URLEncoder.encode("inputEmail", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
+                data += "&" + URLEncoder.encode("inputPassword", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
+
+                URL url = new URL(link);
+                URLConnection conn = url.openConnection();
+
+                conn.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+                wr.write( data );
+                wr.flush();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Read Server Response
+                while((line = reader.readLine()) != null)
+                {
+                    sb.append(line);
+                    break;
+                }
+                return sb.toString();
+            }
+            catch(Exception e){
+
+                return new String("Exception: " + e.getMessage());
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Toast.makeText(context,s,Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+    EditText username,password;
     TextView sign_up;
     android.support.v7.widget.AppCompatButton login_button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        username= (EditText) findViewById(R.id.input_username);
+        password= (EditText) findViewById(R.id.input_password);
         sign_up= (TextView) findViewById(R.id.link_signup);
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,7 +99,8 @@ public class Login extends ActionBarActivity {
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Login.this,SpreeMain.class));
+                new LoginAsync(getApplicationContext()).execute(username.getText().toString(),password.getText().toString());
+                //startActivity(new Intent(Login.this,SpreeMain.class));
             }
         });
     }
