@@ -2,6 +2,7 @@ package com.spree.spree_app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -23,11 +24,12 @@ import java.net.URLEncoder;
 
 
 public class Login extends ActionBarActivity {
-
+    static int login=0;
 
     class LoginAsync extends AsyncTask<String,Void,String>
     {
         Context context;
+        String username="",password="";
         public LoginAsync(Context context)
         {
             this.context=context;
@@ -35,10 +37,10 @@ public class Login extends ActionBarActivity {
         @Override
         protected String doInBackground(String...arg) {
             try{
-                String username = (String)arg[0];
-                String password = (String)arg[1];
+                username = (String)arg[0];
+                password = (String)arg[1];
 
-                String link="http://localhost/spree_reg16/accounts/login_mobile";
+                String link="http://10.0.2.2/spree_reg16/accounts/login_mobile";
                 String data  = URLEncoder.encode("inputEmail", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
                 data += "&" + URLEncoder.encode("inputPassword", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
 
@@ -73,6 +75,18 @@ public class Login extends ActionBarActivity {
         @Override
         protected void onPostExecute(String s) {
             Toast.makeText(context,s,Toast.LENGTH_SHORT).show();
+            if(s.equals("1"))
+            {   SharedPreferences.Editor editor = getSharedPreferences("spree_login", MODE_PRIVATE).edit();
+                editor.putString("username", username);
+                editor.commit();
+                Intent I=new Intent(getApplicationContext(),SpreeMain.class);
+                startActivity(I);
+
+            }
+            else{
+                TextView error= (TextView) findViewById(R.id.error);
+                error.setText("Error logging in. Please check your username/password");
+            }
         }
     }
 
@@ -84,6 +98,12 @@ public class Login extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences prefs = getSharedPreferences("spree_login", MODE_PRIVATE);
+        String restoredText = prefs.getString("username", null);
+        if (restoredText!=null) {
+            Intent I=new Intent(getApplicationContext(),SpreeMain.class);
+            startActivity(I);
+        }
         setContentView(R.layout.activity_login);
         username= (EditText) findViewById(R.id.input_username);
         password= (EditText) findViewById(R.id.input_password);

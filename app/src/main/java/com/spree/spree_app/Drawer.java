@@ -2,6 +2,7 @@ package com.spree.spree_app;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -51,10 +52,15 @@ public class Drawer extends Fragment {
         return layout;
     }
 
-    public static List<List_item> get_data(){
+    public List<List_item> get_data(){
         List<List_item> data=new ArrayList<>();
         int[] icons={R.drawable.event,R.drawable.pro,R.drawable.attt,R.drawable.attt,R.drawable.attt,R.drawable.attt};
         String[] titles={"Theme","Events","Spotlights","Proshow","Initiative","Workshop","Attraction","Team","Login","About"};
+        SharedPreferences prefs = this.getActivity().getSharedPreferences("spree_login", this.getActivity().MODE_PRIVATE);
+        String restoredText = prefs.getString("username", null);
+        if(restoredText!=null){
+            titles[8]="logout";
+        }
         for (int i=0;i<titles.length;i++){
            List_item current= new List_item();
             current.icon_id=icons[0];

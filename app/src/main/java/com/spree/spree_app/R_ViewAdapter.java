@@ -2,6 +2,7 @@ package com.spree.spree_app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
@@ -70,7 +71,7 @@ public class R_ViewAdapter extends RecyclerView.Adapter<R_ViewAdapter.R_ViewHold
                 String type=title.getText().toString().toLowerCase();
                 Toast.makeText(item_context,""+type,Toast.LENGTH_SHORT).show();
                 String query=null;
-                if(!(type.equals("login") || type.equals("team") ||type.equals("about") )){
+                if(!(type.equals("login") || type.equals("team") ||type.equals("about") ||type.equals("logout") )){
 
                     if(type.equals("events")){
                         Log.d("sachin", "detected");
@@ -103,6 +104,13 @@ public class R_ViewAdapter extends RecyclerView.Adapter<R_ViewAdapter.R_ViewHold
                         I=new Intent(item_context,Team.class);
                     }else if (type.equals("about")){
                         I=new Intent(item_context,About.class);
+                    }
+                    else if(type.equals("logout")){
+                        SharedPreferences.Editor editor = item_context.getSharedPreferences("spree_login",item_context.MODE_PRIVATE).edit();
+                        editor.putString("username", null);
+                        editor.commit();
+                        I=new Intent(item_context,Login.class);
+
                     }
 
                 }
