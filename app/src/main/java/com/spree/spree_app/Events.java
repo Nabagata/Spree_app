@@ -56,9 +56,11 @@ public class Events extends ActionBarActivity {
         cr = db.rawQuery(category1, null);
         for (int i = 0; cr.moveToNext(); i++) {
             Event_list_item current = new Event_list_item();
-            current.icon_id = icons[0];
+
             current.title = cr.getString(cr.getColumnIndex("event_name"));
             current.description = cr.getString(cr.getColumnIndex("remarks"));
+            current.event_type=cr.getString(cr.getColumnIndex("category1"));
+            current.event_id=cr.getString(cr.getColumnIndex("id"));
             data.add(current);
         }
 

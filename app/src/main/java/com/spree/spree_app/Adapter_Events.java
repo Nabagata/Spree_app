@@ -40,9 +40,11 @@ public class Adapter_Events  extends RecyclerView.Adapter<Adapter_Events.R_ViewH
         @Override
         public void onBindViewHolder(R_ViewHolder holder, int position) {
             Event_list_item current=data.get(position);
+            holder.event_type=current.event_type;
+            holder.event_id=current.event_id;
             holder.title.setText(current.title);
             holder.description.setText(current.description);
-            holder.icon.setImageResource(current.icon_id);
+            holder.icon.setImageResource(item_context.getResources().getIdentifier("id"+current.event_id, "drawable", item_context.getPackageName()));
         }
 
         @Override
@@ -52,12 +54,14 @@ public class Adapter_Events  extends RecyclerView.Adapter<Adapter_Events.R_ViewH
 
         class R_ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             TextView title,description;
+            String event_id;
             ImageView icon;
-
+            String event_type;
             public R_ViewHolder(View itemView) {
                 super(itemView);
                 itemView.setOnClickListener(this);
                 title= (TextView) itemView.findViewById(R.id.card_title);
+
                 Typeface face= Typeface.createFromAsset(item_context.getAssets(), "fonts/Baron Neue Bold.otf");
                 title.setTypeface(face);
                 description=(TextView) itemView.findViewById(R.id.card_text);
@@ -69,8 +73,10 @@ public class Adapter_Events  extends RecyclerView.Adapter<Adapter_Events.R_ViewH
 
                 try {
                     Intent I=new Intent(item_context,Class.forName("com.spree.spree_app.Event_main"));
+                    I.putExtra("event_type",event_type);
+                    I.putExtra("event_id",event_id);
                     I.putExtra("title", title.getText());
-                    I.putExtra("icon_id", "wide");
+                    I.putExtra("icon_id", "id"+event_id);
                     I.putExtra("description",description.getText());
                     item_context.startActivity(I);
                 } catch (ClassNotFoundException e) {

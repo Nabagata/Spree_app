@@ -75,7 +75,7 @@ public class SpreeMain extends ActionBarActivity {
                 category1=cr.getString(cr.getColumnIndex("category1"));
                 Toast.makeText(getApplicationContext()," "+category1,Toast.LENGTH_SHORT).show();
                 ImageView event_image=new ImageView(this);
-                event_image.setImageResource(R.drawable.pic);
+                event_image.setImageResource(R.drawable.e1);
                 event_image.setPadding(1,1,1,1);
                 event_image.setOnClickListener(new View.OnClickListener() {
                     @Override

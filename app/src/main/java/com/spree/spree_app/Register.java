@@ -96,8 +96,11 @@ public class Register extends ActionBarActivity {
         sex= (EditText) findViewById(R.id.input_sex);
         city= (EditText) findViewById(R.id.input_city);
         state= (EditText) findViewById(R.id.input_state);
-        Retrofit retrofi=new Retrofit.Builder().baseUrl(Constants.base_url_reg).addConverterFactory(GsonConverterFactory.create()).build();
-        Register.apiService=retrofi.create(SpreeApiEndpointInterface.class);
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(Constants.base_url_reg)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Register.apiService=retrofit.create(SpreeApiEndpointInterface.class);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

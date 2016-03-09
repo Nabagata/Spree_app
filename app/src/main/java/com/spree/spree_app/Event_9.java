@@ -38,8 +38,6 @@ public class Event_9 extends ActionBarActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         populate_grid();
 
-
-
         Drawer drawer= (Drawer) getSupportFragmentManager().findFragmentById(R.id.drawer_fragment);
         drawer.setup(R.id.drawer_fragment, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
 
@@ -52,6 +50,7 @@ public class Event_9 extends ActionBarActivity {
         TableLayout grid_table= (TableLayout) findViewById(R.id.grid_table);
         cr=db.rawQuery("select distinct category_new from events where category_new > 0 order by category_new ASC",null);
         rows= (int) Math.ceil(cr.getCount()/ 2.0);
+        int c=0;
         for (int i=0;i<rows;i++){
             TableRow grid_row=new TableRow(this);
             TableLayout.LayoutParams tableRowParams=
@@ -65,10 +64,22 @@ public class Event_9 extends ActionBarActivity {
 
             for (int j=0;j<col && cr.moveToNext();j++){
                 final int category1;
+
                 category1=Integer.parseInt(cr.getString(cr.getColumnIndex("category_new")));
                 Toast.makeText(getApplicationContext()," "+category1,Toast.LENGTH_SHORT).show();
+                int img[]={
+                        this.getResources().getIdentifier("e1", "drawable", this.getPackageName()),
+                        this.getResources().getIdentifier("e3", "drawable", this.getPackageName()),
+                        this.getResources().getIdentifier("e4", "drawable", this.getPackageName()),
+                        this.getResources().getIdentifier("e5", "drawable", this.getPackageName()),
+                        this.getResources().getIdentifier("e6", "drawable", this.getPackageName()),
+                        this.getResources().getIdentifier("e7", "drawable", this.getPackageName()),
+                        this.getResources().getIdentifier("e8", "drawable", this.getPackageName()),
+                        this.getResources().getIdentifier("e9", "drawable", this.getPackageName())
+
+                };
                 ImageView event_image=new ImageView(this);
-                event_image.setImageResource(R.drawable.pic);
+                event_image.setImageResource(img[c]);c++;
                 event_image.setPadding(1,1,1,1);
                 event_image.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -84,7 +95,7 @@ public class Event_9 extends ActionBarActivity {
     public void direct(View v,int category1){
         Intent I=new Intent(Event_9.this,Events.class);
         // String query="select event_name,remarks from events where category=' "+category1+" ' ";
-        String query="select event_name,remarks from events where category_new="+category1+" order by category_new ASC";
+        String query="select category1,event_name,remarks,id from events where category_new="+category1+" order by category_new ASC";
         I.putExtra("category1", query);
         startActivity(I);
     }
