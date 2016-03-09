@@ -75,10 +75,12 @@ public class Login extends ActionBarActivity {
         @Override
         protected void onPostExecute(String s) {
             Toast.makeText(context,s,Toast.LENGTH_SHORT).show();
-            if(s.equals("1"))
+            if(!s.equals("0"))
             {   SharedPreferences.Editor editor = getSharedPreferences("spree_login", MODE_PRIVATE).edit();
                 editor.putString("username", username);
+                editor.putString("userid",s);
                 editor.commit();
+
                 Intent I=new Intent(getApplicationContext(),SpreeMain.class);
                 startActivity(I);
 

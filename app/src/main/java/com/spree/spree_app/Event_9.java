@@ -50,7 +50,7 @@ public class Event_9 extends ActionBarActivity {
 
     private void populate_grid() {
         TableLayout grid_table= (TableLayout) findViewById(R.id.grid_table);
-        cr=db.rawQuery("select distinct category_new from events",null);
+        cr=db.rawQuery("select distinct category_new from events where category_new > 0 order by category_new ASC",null);
         rows= (int) Math.ceil(cr.getCount()/ 2.0);
         for (int i=0;i<rows;i++){
             TableRow grid_row=new TableRow(this);
@@ -84,7 +84,7 @@ public class Event_9 extends ActionBarActivity {
     public void direct(View v,int category1){
         Intent I=new Intent(Event_9.this,Events.class);
         // String query="select event_name,remarks from events where category=' "+category1+" ' ";
-        String query="select event_name,remarks from events where category_new="+category1+"";
+        String query="select event_name,remarks from events where category_new="+category1+" order by category_new ASC";
         I.putExtra("category1", query);
         startActivity(I);
     }

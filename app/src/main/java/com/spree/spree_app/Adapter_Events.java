@@ -2,6 +2,7 @@ package com.spree.spree_app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -57,6 +58,8 @@ public class Adapter_Events  extends RecyclerView.Adapter<Adapter_Events.R_ViewH
                 super(itemView);
                 itemView.setOnClickListener(this);
                 title= (TextView) itemView.findViewById(R.id.card_title);
+                Typeface face= Typeface.createFromAsset(item_context.getAssets(), "fonts/Baron Neue Bold.otf");
+                title.setTypeface(face);
                 description=(TextView) itemView.findViewById(R.id.card_text);
                 icon= (ImageView) itemView.findViewById(R.id.card_icon);
             }

@@ -1,6 +1,7 @@
 package com.spree.spree_app;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -32,6 +33,8 @@ public class Event_main extends ActionBarActivity {
         description= (TextView) findViewById(R.id.event_text);
         event_icon= (ImageView) findViewById(R.id.event_icon);
         int icon_id = event_icon.getResources().getIdentifier(icon, "drawable", getPackageName());
+        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/Baron Neue Bold.otf");
+        event_title.setTypeface(face);
         event_title.setText(title);
         event_icon.setImageResource(icon_id);
         description.setText(intent.getExtras().getString("description"));
