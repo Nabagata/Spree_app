@@ -37,6 +37,7 @@ public class Register extends ActionBarActivity {
             mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setMessage("Signing you up.");
             mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setCancelable(false);
         }
         mProgressDialog.show();
     }
@@ -94,21 +95,32 @@ public class Register extends ActionBarActivity {
         @Override
         protected void onPostExecute(String s) {
             Log.d("retrofitsignup", s);
-            if (!s.equals("-1")) {
+            boolean flag = true;
+            if (s.equals("-1"))
+                flag = false;
+            else {
+                for (int i = 0; i < s.length(); i++) {
+                    if (s.charAt(i) < 48 || s.charAt(i) > 57) {
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+            if (flag) {
                 hideProgressDialog();
                 SharedPreferences.Editor editor = getSharedPreferences("spree_login", MODE_PRIVATE).edit();
                 editor.putString("username", this.inputName);
                 editor.putString("userid", s);
                 editor.commit();
-
+                Toast.makeText(getApplicationContext(),"Successfully logged in.\n User id : "+s,Toast.LENGTH_SHORT).show();;
                 Intent I = new Intent(getApplicationContext(), Event_9.class);
                 I.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(I);
 
             } else {
                 hideProgressDialog();
-                TextView error = (TextView) findViewById(R.id.error);
-                error.setText("Error signing up. Please check your details");
+                TextView error = (TextView) findViewById(R.id.reg_error);
+                error.setText("Error signing up. Email ID already exists.");
             }
         }
     }

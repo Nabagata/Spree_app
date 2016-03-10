@@ -46,6 +46,7 @@ public class Event_main extends ActionBarActivity {
             mProgressDialog=new ProgressDialog(this);
             mProgressDialog.setMessage("Registering you for the event");
             mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setCancelable(false);
         }
         mProgressDialog.show();
     }
@@ -225,7 +226,7 @@ public class Event_main extends ActionBarActivity {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hello, I will be attending "+event_title.toString()+" event at Springspree'16, NIT Warangal. Go to http://www.springspree.in/ for more details. Hope to see you there.";
+                String shareBody = "Hello, I will be attending "+event_title.getText().toString()+" event at Springspree'16, NIT Warangal. Go to http://www.springspree.in/ for more details. Hope to see you there.";
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));

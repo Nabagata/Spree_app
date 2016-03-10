@@ -30,22 +30,21 @@ public class Login extends ActionBarActivity {
     static int login = 0;
     private ProgressDialog mProgressDialog;
 
-    private void showProgressDialog()
-    {
-        if(mProgressDialog==null)
-        {
-            mProgressDialog=new ProgressDialog(this);
+    private void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setMessage("Loggin you in.");
             mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setCancelable(false);
         }
         mProgressDialog.show();
     }
 
-    private void hideProgressDialog()
-    {
-        if(mProgressDialog!=null && mProgressDialog.isShowing())
+    private void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing())
             mProgressDialog.hide();
     }
+
     class LoginAsync extends AsyncTask<String, Void, String> {
         Context context;
         String username = "", password = "";
@@ -92,20 +91,36 @@ public class Login extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            if (!s.equals("0")) {
+            boolean flag = true;
+            if (s.equals("0"))
+                flag = false;
+            else {
+                for (int i = 0; i < s.length(); i++) {
+                    if (s.charAt(i) < 48 || s.charAt(i) > 57) {
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+            if (flag) {
                 hideProgressDialog();
+                Toast.makeText(getApplicationContext(),"Successfully logged in.\n User id : "+s,Toast.LENGTH_SHORT).show();;
                 SharedPreferences.Editor editor = getSharedPreferences("spree_login", MODE_PRIVATE).edit();
                 editor.putString("username", username);
                 editor.putString("userid", s);
                 editor.commit();
+
+
                 Intent I = new Intent(getApplicationContext(), Event_9.class);
                 I.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(I);
 
             } else {
+
                 hideProgressDialog();
                 TextView error = (TextView) findViewById(R.id.error);
                 error.setText("Error logging in. Please check your username/password");
+                new LoginAsync(getApplicationContext()).execute(username, password);
             }
         }
     }
@@ -139,12 +154,11 @@ public class Login extends ActionBarActivity {
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isNetworkAvailable())
-                {
+
+                if (isNetworkAvailable()) {
                     showProgressDialog();
                     new LoginAsync(getApplicationContext()).execute(username.getText().toString(), password.getText().toString());
-                }
-                else
+                } else
                     Toast.makeText(getApplicationContext(), "Please check your internet connection", Toast.LENGTH_LONG).show();
             }
         });
@@ -176,6 +190,6 @@ public class Login extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);*/
-        return  false;
+        return false;
     }
 }

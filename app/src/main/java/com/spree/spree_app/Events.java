@@ -44,7 +44,7 @@ public class Events extends ActionBarActivity {
 
     private List<Event_list_item> getdata() {
         List<Event_list_item> data=new ArrayList<>();
-        int[] icons={R.drawable.wide,R.drawable.wide,R.drawable.wide};
+
         category1=getIntent().getExtras().getString("category1", null);
         cr = db.rawQuery(category1, null);
         for (int i = 0; cr.moveToNext(); i++) {
