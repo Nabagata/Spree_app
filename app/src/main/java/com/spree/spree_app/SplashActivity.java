@@ -1,30 +1,41 @@
 package com.spree.spree_app;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
+public class SplashActivity extends Activity {
 
-public class SplashActivity extends ActionBarActivity {
-    ImageView imageView;
+    // Splash screen timer
+    private static int SPLASH_TIME_OUT = 3000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        imageView= (ImageView) findViewById(R.id.imageView);
-        Log.d("warn","calling finish");
-        finish();
-        Log.d("warn", "finished");
-        Intent intent = new Intent(this, Events.class);
-        startActivity(intent);
-        Log.d("warn", "started");
-    }
 
-    @Override
+        new Handler().postDelayed(new Runnable() {
+
+            /*
+             * Showing splash screen with a timer. This will be useful when you
+             * want to show case your app logo / company
+             */
+
+            @Override
+            public void run() {
+                // This method will be executed once the timer is over
+                // Start your app main activity
+                Intent i = new Intent(SplashActivity.this, Event_9.class);
+                startActivity(i);
+
+                // close this activity
+                finish();
+            }
+        }, SPLASH_TIME_OUT);
+    }
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_splash, menu);
@@ -45,4 +56,5 @@ public class SplashActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

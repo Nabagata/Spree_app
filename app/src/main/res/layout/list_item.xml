@@ -4,6 +4,7 @@
     android:layout_height="50dp"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
+    android:layout_marginBottom="4dp"
     >
 
     <ImageView
@@ -25,10 +26,5 @@
         android:layout_height="wrap_content"
         android:text="Events"
         />
-    <View
-        android:layout_below="@+id/list_item_icon"
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+
 </RelativeLayout>

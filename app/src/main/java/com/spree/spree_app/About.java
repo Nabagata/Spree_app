@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
 public class About extends ActionBarActivity {
@@ -12,6 +13,15 @@ public class About extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        setTitle("Theme");
+        TextView text = (TextView) findViewById(R.id.theme_text);
+        text.setText("SpringSpree was introduced in 1978 as a platform for students to showcase their talents outside of their academic performances. 36 years later, SpringSpree continues to be an evergreen platform for students across the nation to come together to celebrate their cultural talents. Over the years, we've had famous and ingenious artists taking part in SpringSpree with their majestic performances and esteemed prescence.\n" +
+                "\n" +
+                "This year, we hope to take our event to the next level. To ensure the outreach of cultural aspects both Indian and International, we present to you SpringSpree's theme of 2016: \"Silver Screen\".\n" +
+                "\n" +
+                "Films help stimulate the mind and allow our creativity to shine. Movies dominate the entertainment industry entirely and have an impact on us socially, politically and economically. They are a major part of our lives and deserve to be celebrated. This year we aim to unite every cultural aspect of the movie industry, be it Bollywood or Hollywood, and celebrate the movies we love. Prepare yourselves to rejoice as we bring your favorite movies to life!\n" +
+                "\n" +
+                "\"Indian Cinema has virtually become a parallel culture. Talk of India with a foreigner and debates virtually centres around Indian films.\" - Amitabh Bachhan");
     }
 
     @Override

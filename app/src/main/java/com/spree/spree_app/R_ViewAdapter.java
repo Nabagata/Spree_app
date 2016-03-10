@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.List;
@@ -69,7 +68,6 @@ public class R_ViewAdapter extends RecyclerView.Adapter<R_ViewAdapter.R_ViewHold
                 Drawer.close();
                 Intent I=null;
                 String type=title.getText().toString().toLowerCase();
-                Toast.makeText(item_context,""+type,Toast.LENGTH_SHORT).show();
                 String query=null;
                 if(!(type.equals("login") || type.equals("team") ||type.equals("about") ||type.equals("logout") )){
 
@@ -83,17 +81,18 @@ public class R_ViewAdapter extends RecyclerView.Adapter<R_ViewAdapter.R_ViewHold
                         I=new Intent(item_context,Class.forName("com.spree.spree_app.Events"));
 
                         if (type.equals("spotlights"))
-                            query = "select event_name,remarks from events where category1='spotlight' ";
+                            query = "select category1,event_name,remarks,id from events where category1='spotlight' ";
                         else if (type.equals("proshow"))
-                            query = "select event_name,remarks from events where type='proshows' ";
+                            query = "select category1,event_name,remarks,id from events where type='proshows' ";
                         else if (type.equals("initiative"))
-                            query = "select event_name,remarks from events where type='initiative' ";
+                            query = "select category1,event_name,remarks,id from events where type='initiative' ";
                         else if (type.equals("workshop"))
-                            query = "select event_name,remarks from events where type='workshop' ";
+                            query = "select category1,event_name,remarks,id from events where type='workshop' ";
                         else if (type.equals("attraction"))
-                            query = "select event_name,remarks from events where type='attractions' ";
+                            query = "select category1,event_name,remarks,id from events where type='attractions' ";
 
                         I.putExtra("category1", query);
+                        I.putExtra("Title",(char)(type.charAt(0)-32)+type.substring(1));
                     }
                 }
                 else{
@@ -107,10 +106,10 @@ public class R_ViewAdapter extends RecyclerView.Adapter<R_ViewAdapter.R_ViewHold
                     }
                     else if(type.equals("logout")){
                         SharedPreferences.Editor editor = item_context.getSharedPreferences("spree_login",item_context.MODE_PRIVATE).edit();
-                        editor.putString("username", null);
+                        editor.remove("userid");
                         editor.commit();
                         I=new Intent(item_context,Login.class);
-
+                        I.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     }
 
                 }

@@ -5,6 +5,6 @@ package com.spree.spree_app;
  */
 public class Constants {
 
-    public static String base_url_reg="http://10.0.2.2/spree_reg16/";
+    public static String base_url_reg="http://register.springspree.in/";
     public static String base_url="http://10.0.2.2/spree16/";
 }

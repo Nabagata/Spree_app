@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,19 +30,13 @@ public class Events extends ActionBarActivity {
         Toolbar toolbar;
         toolbar= (Toolbar) findViewById(R.id.app_toolbar);
         setSupportActionBar(toolbar);
-        /*getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
+
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        setTitle(this.getIntent().getExtras().getString("Title").toString());
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
-        // specify an adapter (see also next example)
         mAdapter = new Adapter_Events(Events.this,getdata());
         mRecyclerView.setAdapter(mAdapter);
 

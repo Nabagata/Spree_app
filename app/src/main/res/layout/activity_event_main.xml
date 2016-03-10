@@ -1,14 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.spree.spree_app.Event_main">
     <include
         layout="@layout/app_bar"
         android:id="@+id/event_app_toolbar" />
     <RelativeLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/event_app_toolbar"
         android:padding="16dp">
         <TextView
@@ -27,12 +28,80 @@
             android:layout_below="@+id/event_title"
             android:paddingBottom="16dp"
             android:textSize="14sp"
-            android:text="Sachin" />
+            android:text="To be decided" />
 
         <ImageView
             android:id="@+id/event_icon"
             android:layout_width="match_parent"
-            android:layout_height="225dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/event_text" />
+
+        <TextView
+            android:id="@+id/event_manager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/event_icon"
+            android:paddingBottom="16dp"
+            android:textSize="14sp"
+            android:text="To be decided" />
+        <TextView
+            android:id="@+id/event_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/event_manager"
+            android:paddingBottom="16dp"
+            android:textSize="14sp"
+            android:text="To be decided" />
+        <TextView
+            android:id="@+id/event_venue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/event_date"
+            android:paddingBottom="16dp"
+            android:textSize="14sp"
+            android:text="To be decided" />
+
+
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:layout_alignParentBottom="true"
+        >
+
+        <ImageView
+
+            android:layout_alignParentLeft="true"
+            android:id ="@+id/register_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:src="@drawable/register"
+
+            />
+
+        <ImageView
+
+            android:id ="@+id/phone_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:src="@drawable/phone"
+            android:layout_centerInParent="true"
+            />
+
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:id ="@+id/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:src="@drawable/share"
+
+            />
+
+    </RelativeLayout>
+
 </RelativeLayout>

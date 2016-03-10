@@ -15,14 +15,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
-
-import com.astuetz.PagerSlidingTabStrip;
-
-import java.io.IOException;
-
-import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
-
 
 public class SpreeMain extends ActionBarActivity {
     private Toolbar toolbar;
@@ -51,7 +43,6 @@ public class SpreeMain extends ActionBarActivity {
         drawer.setup(R.id.drawer_fragment, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
 
 
-        Toast.makeText(this, this.getExternalFilesDir(null).getAbsolutePath(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -73,7 +64,6 @@ public class SpreeMain extends ActionBarActivity {
             for (int j=0;j<col && cr.moveToNext();j++){
                 final String category1;
                 category1=cr.getString(cr.getColumnIndex("category1"));
-                Toast.makeText(getApplicationContext()," "+category1,Toast.LENGTH_SHORT).show();
                 ImageView event_image=new ImageView(this);
                 event_image.setImageResource(R.drawable.e1);
                 event_image.setPadding(1,1,1,1);

@@ -54,16 +54,16 @@ public class Drawer extends Fragment {
 
     public List<List_item> get_data(){
         List<List_item> data=new ArrayList<>();
-        int[] icons={R.drawable.event,R.drawable.pro,R.drawable.attt,R.drawable.attt,R.drawable.attt,R.drawable.attt};
-        String[] titles={"Theme","Events","Spotlights","Proshow","Initiative","Workshop","Attraction","Team","Login","About"};
+        int[] icons={R.drawable.d1,R.drawable.d2,R.drawable.d3,R.drawable.d4,R.drawable.d5,R.drawable.d6,R.drawable.d7,R.drawable.d8,R.drawable.d9,R.drawable.d1};
+        String[] titles={"About","Events","Spotlights","Proshow","Initiative","Workshop","Attraction","Team","Login"};
         SharedPreferences prefs = this.getActivity().getSharedPreferences("spree_login", this.getActivity().MODE_PRIVATE);
-        String restoredText = prefs.getString("username", null);
+        String restoredText = prefs.getString("userid", null);
         if(restoredText!=null){
             titles[8]="logout";
         }
         for (int i=0;i<titles.length;i++){
            List_item current= new List_item();
-            current.icon_id=icons[0];
+            current.icon_id=icons[i];
             current.title=titles[i];
             data.add(current);
         }

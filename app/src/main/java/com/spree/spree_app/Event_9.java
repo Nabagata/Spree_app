@@ -7,14 +7,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
 
 
 public class Event_9 extends ActionBarActivity {
@@ -32,7 +30,7 @@ public class Event_9 extends ActionBarActivity {
         setContentView(R.layout.activity_spree_main);
         toolbar= (Toolbar) findViewById(R.id.app_toolbar);
         setSupportActionBar(toolbar);
-
+        setTitle("Categories");
         db=sdb.create_db();
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -42,7 +40,6 @@ public class Event_9 extends ActionBarActivity {
         drawer.setup(R.id.drawer_fragment, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
 
 
-        Toast.makeText(this, this.getExternalFilesDir(null).getAbsolutePath(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -66,7 +63,6 @@ public class Event_9 extends ActionBarActivity {
                 final int category1;
 
                 category1=Integer.parseInt(cr.getString(cr.getColumnIndex("category_new")));
-                Toast.makeText(getApplicationContext()," "+category1,Toast.LENGTH_SHORT).show();
                 int img[]={
                         this.getResources().getIdentifier("e1", "drawable", this.getPackageName()),
                         this.getResources().getIdentifier("e3", "drawable", this.getPackageName()),
@@ -97,6 +93,27 @@ public class Event_9 extends ActionBarActivity {
         // String query="select event_name,remarks from events where category=' "+category1+" ' ";
         String query="select category1,event_name,remarks,id from events where category_new="+category1+" order by category_new ASC";
         I.putExtra("category1", query);
+        String title="";
+        switch(category1)
+        {
+            case 6: title="Music";
+                    break;
+            case 5: title="Quiz Events";
+                    break;
+            case 4: title="Online Events";
+                    break;
+            case 3: title="Dance and Dramatics";
+                    break;
+            case 1: title="Radio & Photography";
+                    break;
+            case 7: title="Literary Events";
+                    break;
+            case 8: title="Arts & Creatives";
+                    break;
+            case 9: title="General Events";
+                    break;
+        }
+        I.putExtra("Title",title);
         startActivity(I);
     }
     @Override
