@@ -103,11 +103,12 @@ public class SpreeMain extends ActionBarActivity {
         /*if (id == R.id.action_settings) {
             return true;
         }*/
-        if (id == R.id.notify_img){
-            Intent I=new Intent(this,Notify.class);
-            startActivity(I);
-        }
-
-        return super.onOptionsItemSelected(item);
+//        if (id == R.id.notify_img){
+//            Intent I=new Intent(this,Notify.class);
+//            startActivity(I);
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+        return false;
     }
 }

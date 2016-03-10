@@ -267,10 +267,11 @@ public class Event_main extends ActionBarActivity {
             return true;
         }*/
 
-        if (id == R.id.notify_img) {
-            Intent I = new Intent(this, Notify.class);
-            startActivity(I);
-        }
-        return super.onOptionsItemSelected(item);
+//        if (id == R.id.notify_img) {
+//            Intent I = new Intent(this, Notify.class);
+//            startActivity(I);
+//        }
+//        return super.onOptionsItemSelected(item);
+        return  false;
     }
 }
