@@ -176,7 +176,7 @@ public class Event_main extends ActionBarActivity {
         setTitle(title);
         String icon = intent.getExtras().getString("icon_id");
         final String event_id = intent.getExtras().getString("event_id");
-        String event_type = intent.getExtras().getString("event_type");
+
 
         event_title = (TextView) findViewById(R.id.event_title);
         description = (TextView) findViewById(R.id.event_text);
@@ -192,11 +192,39 @@ public class Event_main extends ActionBarActivity {
         description.setText(intent.getExtras().getString("description"));
         //new MinMaxAsync(event_id,getApplicationContext()).execute();
 
-        final Cursor cr = db.rawQuery("select evm_name,evm_contact,venue from events where id=" + event_id + "", null);
+        final Cursor cr = db.rawQuery("select schedule,evm_name,evm_contact,venue from events where id=" + event_id + "", null);
         cr.moveToNext();
 
         event_manager.setText(cr.getString(cr.getColumnIndex("evm_name")) + " : " + cr.getString(cr.getColumnIndex("evm_contact")));
-        venue.setText(cr.getString(cr.getColumnIndex("venue")));
+
+        venue.setText("Venue : "+cr.getString(cr.getColumnIndex("venue")));
+        Typeface face1 = Typeface.createFromAsset(getAssets(), "fonts/uni.otf");
+        venue.setTypeface(face1);
+
+        StringTokenizer schedule=new StringTokenizer(cr.getString(cr.getColumnIndex("schedule"))," ");
+        String mday1,mday2,mday3,day1,day2,day3;
+        day1=schedule.nextToken();
+        if(day1.equals("00000000")){
+            mday1="none";
+        }else{
+            mday1=day1.substring(0,2)+":"+day1.substring(2,4)+" to "+day1.substring(4,6)+":"+day1.substring(6);
+        }
+
+        day2=schedule.nextToken();
+        if(day2.equals("00000000")){
+            mday2="none";
+        }else{
+            mday2=day2.substring(0,2)+":"+day2.substring(2,4)+" to "+day2.substring(4,6)+":"+day2.substring(6);
+        }
+
+        day3=schedule.nextToken();
+        if(day3.equals("00000000")){
+            mday3="none";
+        }else{
+            mday3=day3.substring(0,2)+":"+day3.substring(2,4)+" to "+day3.substring(4,6)+":"+day3.substring(6);
+        }
+
+        time.setText("Day1 : "+mday1+"\nDay2 : "+mday2+"\nDay3 : "+mday3);
 
 
         register_btn.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +232,7 @@ public class Event_main extends ActionBarActivity {
             public void onClick(View v) {
                 if (userid.equals("-1")) {
                     Intent I = new Intent(getApplicationContext(), Login.class);
-                    I.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    I.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(I);
                 } else {
                     if (isNetworkAvailable()) {
@@ -212,10 +240,8 @@ public class Event_main extends ActionBarActivity {
                         users.add(userid);
                         showProgressDialog();
                         new RegisterAsync(users, event_id, getApplicationContext()).execute();
-                    }
-                    else
-                    {
-                        Toast.makeText(getApplicationContext(),"Please check your internet connection",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Please check your internet connection", Toast.LENGTH_LONG).show();
                     }
                 }
             }

@@ -112,7 +112,7 @@ public class Login extends ActionBarActivity {
 
 
                 Intent I = new Intent(getApplicationContext(), Event_9.class);
-                I.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                I.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(I);
 
             } else {
